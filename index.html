@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniMAGE | A Unified Multimodal Director</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="images/icon.png" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <img src="images/logo.png" alt="UniMAGE logo" class="logo" />
+      <p class="tagline">A Unified Multimodal Director</p>
+      <h1>Bridging Your Imagination with Audio-Video Generation via a Unified Director</h1>
+      <div class="hero-links">
+        <a class="pill-link" href="https://arxiv.org/abs/2512.23222" target="_blank" rel="noopener">View on arXiv</a>
+        <!-- <a class="pill-link" href="https://github.com/Kebii/UniMAGE" target="_blank" rel="noopener">GitHub Repository</a> -->
+      </div>
+    </header>
+
+    <section class="authors">
+      <div class="author-list">
+        <p>Jiaxu Zhang<sup>1,2</sup>, Tianshu Hu<sup>1,†</sup>, Yuan Zhang<sup>1</sup>, Zenan Li<sup>1</sup>, Linjie Luo<sup>1</sup>, Guosheng Lin<sup>2,‡</sup>, Xin Chen<sup>1,†,‡</sup></p>
+        <p><sup>1</sup> Intelligent Creation Lab, ByteDance, <sup>2</sup> Nanyang Technological University</p>
+        <p class="footnote">† Project Lead, ‡ Corresponding Authors</p>
+      </div>
+    </section>
+
+    <section class="abstract">
+      <h2>Abstract</h2>
+      <p>Existing AI-driven video creation systems typically treat script drafting and key-shot design as two disjoint tasks: the former relies on large language models, while the latter depends on image generation models. We argue that these two tasks should be unified within a single framework, as logical reasoning and imaginative thinking are both fundamental qualities of a film director.</p>
+      <p>In this work, we propose UniMAGE, a unified director model that bridges user prompts with well-structured scripts, thereby empowering non-experts to produce long-context, multi-shot films by leveraging existing audio-video generation models.</p>
+      <p>To achieve this, we employ the Mixture-of-Transformers architecture that unifies text and image generation. To further enhance narrative logic and keyframe consistency, we introduce a "first interleaving, then disentangling" training paradigm. Specifically, we first perform Interleaved Concept Learning, which utilizes interleaved text-image data to foster the model's deeper understanding and imaginative interpretation of scripts. We then conduct Disentangled Expert Learning, which decouples script writing from keyframe generation, enabling greater flexibility and creativity in storytelling. </p>
+      <p>Extensive experiments demonstrate that UniMAGE achieves state-of-the-art performance among open-source models, generating logically coherent video scripts and visually consistent keyframe images.</p>
+    </section>
+
+    <section class="videos">
+      <h2>Video Narratives</h2>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-frame">
+            <video controls poster="https://placehold.co/960x540/111418/EEE?text=Demo+Video+01">
+              <source src="videos/UniMAGE_Demo_1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="video-summary">
+            <span>&lt;Character1&gt;: A woman with long, dark brown hair, smiling warmly. She wears a dark grey coat and a blue and green patterned scarf.</span>
+            <span>&lt;Character2&gt;: A man with short, dark brown hair, a friendly smile, wearing a dark pinstriped shirt.</span>
+            <span>&lt;Character3&gt;: A woman with long, blonde hair, smiling brightly, wearing a white t-shirt and a silver necklace.</span>
+            <span>&lt;Environment1&gt;: A dusty, dimly lit archaeological dig site, with ancient stone walls and unearthed artifacts, illuminated by work lights and natural light filtering from above.</span>
+            <span>&lt;Environment2&gt;: A vibrant, lush jungle with dense foliage, ancient ruins partially covered by vines, and sunlight dappling through the canopy.</span>
+          </p>
+          <div class="scene-strip" data-accordion-group aria-label="Scene thumbnails for Demo Video 01">
+            <div class="scene-card">
+              <img src="scripts/demo1/0.png" alt="Demo 1 scene 0" />
+              <details>
+                <summary>Scene 1</summary>
+                <p>
+                  <span>&lt;Frame1&gt;: Medium shot: &lt;Character1&gt; is kneeling in the dirt of the archaeological dig site&lt;Environment1&gt;, carefully brushing dust from an ancient, ornate stone tablet. Her expression is focused and intrigued. Around her are various archaeological tools.</span>
+                  <span>&lt;Video1&gt;: The shot opens with &lt;Character1&gt; meticulously cleaning the artifact in the archaeological dig site&lt;Environment1&gt;. She gasps softly. &lt;It's beautiful... and unlike anything I've seen before.-&gt; The camera slowly zooms in on the intricate carvings of the tablet. &lt;-Soft, inquisitive orchestral music begins-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/1.png" alt="Demo 1 scene 1" />
+              <details>
+                <summary>Scene 2</summary>
+                <p>
+                  <span>&lt;Frame2&gt;: Medium shot: &lt;Character2&gt; stands over &lt;Character1&gt; in the archaeological dig site&lt;Environment1&gt;, holding a notepad and looking at the tablet with a curious, slightly excited expression. &lt;Character1&gt; looks up at him, a question in her eyes.</span>
+                  <span>&lt;Video2&gt;: Still in the archaeological dig site&lt;Environment1&gt;, &lt;Character2&gt; leans in, examining the tablet. &lt;-Do you think it's a map? Or a key?-&gt; &lt;Character1&gt; shakes her head, still studying the carvings. &lt;-It feels more than that. It feels... active.-&gt; The camera pans slightly to show more of the ancient stone walls around them. &lt;-The music becomes slightly more mysterious-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/2.png" alt="Demo 1 scene 2" />
+              <details>
+                <summary>Scene 3</summary>
+                <p>
+                  <span>&lt;Frame3&gt;: Close-up: &lt;Character3&gt; enters the frame, her eyes wide with wonder as she looks at the tablet held by &lt;Character1&gt;. Her blonde hair frames her face, and her smile is replaced with an expression of awe.</span>
+                  <span>&lt;Video3&gt;: &lt;Character3&gt; rushes over to the tablet in the archaeological dig site&lt;Environment1&gt;, her previous bright demeanor now softened by awe. &lt;-Incredible! What do you think it means?-&gt; &lt;Character1&gt; points to a specific symbol. &lt;-I believe it points to something hidden. Something beyond our current understanding.-&gt; &lt;-A subtle, shimmering sound effect accompanies the pointed symbol-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/3.png" alt="Demo 1 scene 3" />
+              <details>
+                <summary>Scene 4</summary>
+                <p>
+                  <span>&lt;Frame4&gt;: Long shot: The three characters, &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt;, are now in the lush jungle&lt;Environment2&gt;. They are walking cautiously through dense foliage, with &lt;Character1&gt; holding the tablet, looking ahead with determination. Sunlight filters through the canopy.</span>
+                  <span>&lt;Video4&gt;: The scene shifts to the vibrant jungle&lt;Environment2&gt;. The trio navigates through the dense undergrowth, &lt;Character1&gt; leading the way, the tablet clutched in her hands. &lt;Character2&gt; scans their surroundings. &lt;-Are you sure this is the right way, Dr. Anya?-&gt; &lt;Character1&gt; nods confidently. &lt;-The tablet's energy readings are strong here.-&gt; &lt;-Jungle ambient sounds, birds chirping, and a sense of adventure in the music-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/4.png" alt="Demo 1 scene 4" />
+              <details>
+                <summary>Scene 5</summary>
+                <p>
+                  <span>&lt;Frame5&gt;: Medium shot: &lt;Character3&gt; is carefully pushing aside large, leafy plants in the jungle&lt;Environment2&gt;, revealing a partially overgrown ancient stone archway. Her expression is one of excited discovery.</span>
+                  <span>&lt;Video5&gt;: &lt;Character3&gt; pushes aside a curtain of vines in the jungle&lt;Environment2&gt;, revealing a hidden, vine-covered archway. She gasps. &lt;-Look! An entrance!-&gt; &lt;Character1&gt; and &lt;Character2&gt; quickly move to her side, their faces alight with anticipation. &lt;-The music swells with a sense of triumph and discovery-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/5.png" alt="Demo 1 scene 5" />
+              <details>
+                <summary>Scene 6</summary>
+                <p>
+                  <span>&lt;Frame6&gt;: Close-up: The three characters, &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt;, stand before the archway in the jungle&lt;Environment2&gt;, their faces illuminated by a soft, ethereal glow emanating from the tablet held by &lt;Character1&gt;. Their expressions are a mix of wonder and excitement.</span>
+                  <span>&lt;Video6&gt;: As they stand before the archway in the jungle&lt;Environment2&gt;, the tablet in &lt;Character1&gt;'s hands begins to glow more intensely, casting an ethereal light on their faces. &lt;Character2&gt; whispers, &lt;-It's reacting to the archway.-&gt; &lt;Character3&gt; reaches out a hand, almost touching the glowing stone. &lt;-What wonders lie beyond?-&gt; &lt;-The music becomes more magical and suspenseful, with a rising crescendo-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/6.png" alt="Demo 1 scene 6" />
+              <details>
+                <summary>Scene 7</summary>
+                <p>
+                  <span>&lt;Frame7&gt;: Medium shot: &lt;Character1&gt; holds the glowing tablet, her eyes wide with a mix of wonder and trepidation, as she stands at the entrance of a newly revealed, dimly lit chamber within the jungle&lt;Environment2&gt;. &lt;Character2&gt; and &lt;Character3&gt; are just behind her, their faces reflecting the tablet's light, their expressions mirroring hers. The entrance is carved into ancient stone, partially covered by vines.</span>
+                  <span>&lt;Video7&gt;: The camera pushes slowly into the dimly lit chamber as &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt; step inside from the jungle&lt;Environment2&gt;. The tablet in &lt;Character1&gt;'s hands pulses with a soft, ethereal light, illuminating ancient carvings on the chamber walls. &lt;Character1&gt; whispers, &lt;-This isn't just an archway... it's a gateway.-&gt; &lt;Character2&gt; looks around nervously. &lt;-I have a bad feeling about this, Anya.-&gt; &lt;Character3&gt; gasps, pointing to a central pedestal. &lt;-Look!-&gt; &lt;-Mysterious, echoing ambient sounds, and a low, rumbling orchestral hum-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/7.png" alt="Demo 1 scene 7" />
+              <details>
+                <summary>Scene 8</summary>
+                <p>
+                  <span>&lt;Frame8&gt;: Long shot: Inside the chamber, the three characters, &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt;, are standing before a large, ornate pedestal. On the pedestal rests a larger, identical-looking stone tablet, glowing faintly. The chamber walls are covered in intricate, celestial patterns, illuminated by the tablet's light. The entrance they came through is now blocked by falling debris.</span>
+                  <span>&lt;Video8&gt;: The camera pans across the chamber, revealing a grand, circular room with celestial patterns etched into the walls. In the center, on a stone pedestal, rests a larger, identical tablet, glowing with a faint, internal light. As &lt;Character1&gt; approaches it, the tablet in her hand intensifies its glow, and the chamber's entrance suddenly collapses, sealing them inside. &lt;-A loud crash as the entrance seals-&gt;. &lt;Character2&gt; shouts, &lt;-The entrance! It's blocked!-&gt; &lt;Character3&gt; clutches &lt;Character1&gt;'s arm. &lt;-What's happening?-&gt; &lt;-The music becomes more urgent and percussive-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/8.png" alt="Demo 1 scene 8" />
+              <details>
+                <summary>Scene 9</summary>
+                <p>
+                  <span>&lt;Frame9&gt;: Close-up: The larger tablet on the pedestal in the chamber begins to spin slowly, its glowing symbols shifting and rearranging. &lt;Character1&gt;'s face is illuminated by its intense light, her expression a mix of awe and dawning realization. &lt;Character2&gt; and &lt;Character3&gt; are partially visible in the background, looking on with concern.</span>
+                  <span>&lt;Video9&gt;: The camera focuses on the larger tablet on the pedestal. Its surface begins to glow intensely, and the celestial patterns on its surface start to shift and rearrange, forming a complex, star-filled map. &lt;Character1&gt; stares, mesmerized. &lt;-It's... it's a map. Not of Earth, but of the cosmos!-&gt; &lt;Character2&gt; steps closer, his concern mixed with fascination. &lt;-But what does it mean?-&gt; &lt;-A high-pitched, harmonic hum emanates from the tablet, growing in intensity-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/9.png" alt="Demo 1 scene 9" />
+              <details>
+                <summary>Scene 10</summary>
+                <p>
+                  <span>&lt;Frame10&gt;: Close-up: &lt;Character1&gt; stands before the spinning, glowing tablet, her face illuminated by its golden light. Her expression shifts from awe to realization. Tiny motes of light swirl around her as if drawn from the tablet itself. Behind her, faint beams of light trace ancient symbols across the chamber walls, revealing constellations that seem to move.</span>
+                  <span>&lt;Video10&gt;: The camera slowly pushes in on &lt;Character1&gt; as the glow from the tablet intensifies, bathing her face in warm, radiant light. Her eyes widen, reflecting galaxies forming within the spinning tablet. &lt;Character2&gt; calls out, &lt;-Step back!-&gt; but his voice is drowned out by the rising hum. &lt;Character1&gt; whispers, barely audible, &lt;-It’s… showing me… everything.-&gt; The chamber trembles, dust falling from the ceiling.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/10.png" alt="Demo 1 scene 10" />
+              <details>
+                <summary>Scene 11</summary>
+                <p>
+                  <span>&lt;Frame11&gt;: Medium shot: As the celestial map on the tablet fully forms, beams of light shoot out from its surface, projecting onto the chamber walls. These beams highlight specific constellations and symbols. &lt;Character1&gt; reaches out a hand towards the light, while &lt;Character2&gt; and &lt;Character3&gt; look up in astonishment, their faces bathed in the ethereal glow.</span>
+                  <span>&lt;Video11&gt;: As the celestial map fully forms, beams of light shoot out from the tablet, projecting onto the chamber walls. These beams highlight specific constellations and ancient symbols, causing them to glow in response. &lt;Character1&gt; reaches out, almost touching a beam. &lt;-It's reacting to us!-&gt; &lt;Character3&gt; gasps. &lt;-It's beautiful... but also terrifying.-&gt; &lt;-The harmonic hum intensifies, joined by a chorus of ethereal voices-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo1/11.png" alt="Demo 1 scene 11" />
+              <details>
+                <summary>Scene 12</summary>
+                <p>
+                  <span>&lt;Frame12&gt;: Long shot: The chamber floor begins to glow with the same celestial patterns, and cracks appear, revealing ancient, stone guardians slowly rising from the ground. Their eyes glow with a faint, internal light. &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt; stand frozen in fear, looking at the awakening guardians.</span>
+                  <span>&lt;Video12&gt;: Suddenly, the chamber floor begins to glow with the same celestial patterns, and cracks spiderweb across the stone. From these cracks, ancient, stone guardians slowly rise, their forms imposing and their eyes glowing with a faint, internal light. &lt;Character1&gt;, &lt;Character2&gt;, and &lt;Character3&gt; are frozen in fear, backing away slowly. &lt;Character2&gt; stammers, &lt;-What... what are those things?-&gt; &lt;-A deep, resonant rumble accompanies the guardians' awakening, followed by a menacing, low-frequency drone-&gt;.</span>
+                </p>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="video-frame">
+            <video controls poster="https://placehold.co/960x540/111418/EEE?text=Demo+Video+02">
+              <source src="videos/UniMAGE_Demo_2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="video-summary">
+            <span>&lt;Character1&gt;: A middle-aged man with short, graying hair, wearing glasses, a light blue collared shirt, and a striped tie. He has a serious yet engaging expression, with his right hand raised in a gesturing motion.</span>
+            <span>&lt;Environment1&gt;: A modern lecture hall with rows of seats, a large projection screen behind the speaker, and professional stage lighting. The atmosphere is academic and inspiring.</span>
+            <span>&lt;Environment2&gt;: A dimly lit planetarium dome, filled with swirling projections of stars and galaxies, creating an immersive and awe-inspiring celestial environment.</span>
+          </p>
+          <div class="scene-strip" data-accordion-group aria-label="Scene thumbnails for Demo Video 02">
+            <div class="scene-card">
+              <img src="scripts/demo2/0.png" alt="Demo 2 scene 0" />
+              <details>
+                <summary>Scene 1</summary>
+                <p>
+                  <span>&lt;Frame1&gt;: Close-up: The astrophysicist&lt;Character1&gt; in the lecture hall&lt;Environment1&gt;, his face illuminated by the stage lights, a thoughtful smile playing on his lips as he looks towards the audience. His glasses reflect the light, adding to his scholarly appearance.</span>
+                  <span>&lt;Video1&gt;: A close-up on the astrophysicist's&lt;Character1&gt; face in the lecture hall&lt;Environment1&gt;. He leans slightly forward, his voice filled with wonder. &lt;-Imagine, if you will, the sheer vastness... the unimaginable scales at play.-&gt; The camera then pans slowly to show a segment of the eager audience, nodding in appreciation. &lt;-The music swells slightly, maintaining an inspiring tone-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo2/1.jpg" alt="Demo 2 scene 1" />
+              <details>
+                <summary>Scene 2</summary>
+                <p>
+                  <span>&lt;Frame2&gt;: Medium shot: The astrophysicist&lt;Character1&gt; stands confidently on stage in the lecture hall&lt;Environment1&gt;, gesturing with both hands as he explains a complex concept. The projection screen behind him now displays a vibrant image of a galaxy.</span>
+                  <span>&lt;Video2&gt;: The shot returns to a medium shot of the astrophysicist&lt;Character1&gt; in the lecture hall&lt;Environment1&gt;. He points to the projection screen, which now displays a breathtaking image of a distant galaxy. &lt;-This, my friends, is just a glimpse of the grand design.-&gt; He takes a step forward, his voice becoming more emphatic. &lt;-The very fabric of space-time, bending and twisting under the immense gravity of these cosmic behemoths!-&gt; &lt;-Music becomes more dynamic and slightly dramatic-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo2/2.png" alt="Demo 2 scene 2" />
+              <details>
+                <summary>Scene 3</summary>
+                <p>
+                  <span>&lt;Frame3&gt;: Long shot: The astrophysicist&lt;Character1&gt; is a silhouette against the bright projection of a swirling nebula in the planetarium dome&lt;Environment2&gt;. He stands with his arms outstretched, as if embracing the celestial display. The dome above him is a canvas of stars and cosmic dust.</span>
+                  <span>&lt;Video3&gt;: The scene transitions to a long shot inside a breathtaking planetarium dome&lt;Environment2&gt;. The astrophysicist&lt;Character1&gt; is silhouetted against a stunning projection of a swirling nebula, his arms wide. His voice, now softer, echoes through the vast space. &lt;-And here, in the planetarium, we are not just observers, but participants in this cosmic dance.-&gt; The camera slowly rotates, showcasing the immersive starry projections. &lt;-Gentle, awe-inspiring ambient music with celestial sounds begins-&gt;.</span>
+                </p>
+              </details>
+            </div>
+            <div class="scene-card">
+              <img src="scripts/demo2/3.png" alt="Demo 2 scene 3" />
+              <details>
+                <summary>Scene 4</summary>
+                <p>
+                  <span>&lt;Frame4&gt;: Close-up: The astrophysicist&lt;Character1&gt; in the planetarium dome&lt;Environment2&gt;, his face lit by the ethereal glow of the star projections. His eyes are wide with wonder, and a profound sense of discovery is etched on his features.</span>
+                  <span>&lt;Video4&gt;: A close-up on the astrophysicist's&lt;Character1&gt; face in the planetarium dome&lt;Environment2&gt;. His expression is one of pure awe and childlike wonder. &lt;-Every star, every galaxy, tells a story billions of years in the making. And we, are privileged to witness it.-&gt; A single tear of joy might glisten in his eye. The camera slowly pulls back to a medium shot, revealing him looking up at the dome in profound contemplation. &lt;-The music swells to a powerful, hopeful crescendo, then fades slowly-&gt;.</span>
+                </p>
+              </details>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="storyboards">
+      <h2>Result Gallery</h2>
+      <div class="storyboard-grid">
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 01</span>
+            <p>A young bakers patisserie is subject to a surprise inspection by urban management officers.</p>
+          </div>
+          <a class="storyboard-link" href="results/reslut_1.pdf" target="_blank" rel="noopener">
+            <img src="images/result_1.png" alt="Result 01 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 02</span>
+            <p>A man discovers an ancient map in his attic, leading him on a solitary adventure to uncover a hidden treasure.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_2.pdf" target="_blank" rel="noopener">
+            <img src="images/result_2.png" alt="Result 02 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 03</span>
+            <p>A kind teacher organizes a special art project for two shy students to help them express themselves and bond.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_3.pdf" target="_blank" rel="noopener">
+            <img src="images/result_3.png" alt="Result 03 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 04</span>
+            <p>A Qatari diplomat and a Japanese martial arts master work together with an American tourist at a bustling international market.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_4.pdf" target="_blank" rel="noopener">
+            <img src="images/result_4.png" alt="Result 04 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 05</span>
+            <p>A renowned art critic and a cunning art forger find themselves in a tense cat-and-mouse game during a high-stakes auction for a disputed masterpiece.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_5.pdf" target="_blank" rel="noopener">
+            <img src="images/result_5.png" alt="Result 05 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 06</span>
+            <p>A young boy, excited about his first magic show, accidentally conjures a playful ghost that creates delightful chaos.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_6.pdf" target="_blank" rel="noopener">
+            <img src="images/result_6.png" alt="Result 06 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 07</span>
+            <p>A renowned historian delivers an inspiring lecture on ancient civilizations at a public forum, captivating her audience with her knowledge and passion.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_7.pdf" target="_blank" rel="noopener">
+            <img src="images/result_7.png" alt="Result 07 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 08</span>
+            <p>A young biologist discovers a rare frog species. He and his partners extracted the virus from the frog's body.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_8.pdf" target="_blank" rel="noopener">
+            <img src="images/result_8.png" alt="Result 08 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 09</span>
+            <p>A jovial professor and a bright student discover a lost ancient artifact, leading them to present their findings to an eager audience.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_9.pdf" target="_blank" rel="noopener">
+            <img src="images/result_9.png" alt="Result 09 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 10</span>
+            <p>A street performer and a focused scholar cross paths in a bustling city, leading to an unexpected moment of connection.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_10.pdf" target="_blank" rel="noopener">
+            <img src="images/result_10.png" alt="Result 10 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 11</span>
+            <p>A little boy and his mother traveled through a storybook to a fantasy world.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_11.pdf" target="_blank" rel="noopener">
+            <img src="images/result_11.png" alt="Result 11 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 12</span>
+            <p>An old fisherman was fishing by the lake and caught a unexpected treasure.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_12.pdf" target="_blank" rel="noopener">
+            <img src="images/result_12.png" alt="Result 12 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 13</span>
+            <p>A man's cow was sick, so he called a veterinarian to treat it.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_13.pdf" target="_blank" rel="noopener">
+            <img src="images/result_13.png" alt="Result 13 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 14</span>
+            <p>A seasoned architect and a resourceful street artist discuss art.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_14.pdf" target="_blank" rel="noopener">
+            <img src="images/result_14.png" alt="Result 14 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 15</span>
+            <p>A lone fisherman on a small boat casts his net into the tranquil sea, hoping for a good catch.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_15.pdf" target="_blank" rel="noopener">
+            <img src="images/result_15.png" alt="Result 15 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 16</span>
+            <p>A young musician teaches himself to play the guitar and fantasizes about performing on stage.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_16.pdf" target="_blank" rel="noopener">
+            <img src="images/result_16.png" alt="Result 16 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 17</span>
+            <p>A dedicated archeologist discovers an ancient, forgotten artifact in a dusty library.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_17.pdf" target="_blank" rel="noopener">
+            <img src="images/result_17.png" alt="Result 17 storyboard preview" />
+          </a>
+        </article>
+
+        <article class="storyboard-card">
+          <div class="storyboard-header">
+            <span class="storyboard-id">Result 18</span>
+            <p>A nature photographer and a park ranger discover a rare bird species.</p>
+          </div>
+          <a class="storyboard-link" href="results/result_18.pdf" target="_blank" rel="noopener">
+            <img src="images/results_18.png" alt="Result 18 storyboard preview" />
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="citation">
+      <p>Please reference UniMAGE using the BibTeX entry below.</p>
+      <pre><code>@article{zhang2025bridging,
+  title={Bridging Imagination with Audio-Video Generation via a Unified Director},
+  author={Zhang, Jiaxu and Hu, Tianshu and Zhang, Yuan and Li, Zenan and Luo, Linjie and Lin, Guosheng and Chen, Xin},
+  journal={arXiv:2512.23222},
+  year={2025}
+}</code></pre>
+    </section>
+
+    <footer class="footer">
+      <p>UniMAGE · A Unified Multimodal Director · 2025</p>
+    </footer>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>

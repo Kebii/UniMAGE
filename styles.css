@@ -1,0 +1,422 @@
+@font-face {
+  font-family: "ByteSansMedium";
+  src: url("fonts/ByteSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ByteSansBold";
+  src: url("fonts/ByteSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "InkFree";
+  src: url("fonts/Inkfree.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  color-scheme: dark;
+  font-family: "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #05060a;
+  color: #f2f5f9;
+}
+
+html {
+  min-height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7ff 5%, #dbe2ff 8%, #12182b 20%, #0a0e1a 40%, #05060a 60%, #000000 100%);
+  background-attachment: scroll;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.page-shell {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  padding: 4rem 0 5rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  background: transparent;
+}
+
+.hero-links {
+  display: inline-flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #233bff, #36d1dc);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 22px rgba(35, 59, 255, 0.25);
+}
+
+.pill-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(35, 59, 255, 0.35);
+}
+
+.pill-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+.logo {
+  display: block;
+  width: 300px;
+  height: auto;
+  margin: 0 auto 1rem;
+  border-radius: 24px;
+  object-fit: contain;
+}
+
+.tagline {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 1rem;
+  color: #4a57a8;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 3.5vw, 3.4rem);
+  margin: 0;
+  color: #05060a;
+}
+
+h1,
+h2,
+.hero .tagline,
+.author-list strong {
+  font-family: "ByteSansBold", "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+section {
+  margin-top: 3.5rem;
+}
+
+.authors {
+  text-align: center;
+  color: #0d1230;
+}
+
+.author-list p {
+  margin: 0.4rem 0;
+  color: #1f2540;
+}
+
+.footnote {
+  font-size: 0.9rem;
+  color: #4e5777;
+}
+
+.abstract {
+  border: 1px solid rgba(5, 6, 10, 0.08);
+  border-radius: 20px;
+  padding: 1.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0d1230;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  text-align: left;
+  line-height: 1.65;
+}
+
+.abstract h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  color: #0a0f2a;
+}
+
+.abstract p {
+  margin: 0.5rem 0;
+  color: #1c254f;
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.abstract p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(190deg, #5a6dff 0%, #35d1f5 100%);
+  box-shadow: 0 0 8px rgba(88, 127, 255, 0.45);
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.videos .video-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.video-card {
+  border-radius: 22px;
+  padding: 1.5rem;
+  background: #0b0d14;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.video-frame video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-summary {
+  margin: 1rem 0 0;
+  color: #cfd6ff;
+  font-size: 1.0rem;
+  line-height: 1.5;
+  font-family: "InkFree", "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.video-summary span {
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.video-summary span:first-child {
+  margin-top: 0;
+}
+
+.scene-strip {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 0 0.75rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: #4a57a8 rgba(255, 255, 255, 0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.scene-strip::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scene-strip::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.scene-strip::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #5163ff, #36d1dc);
+  border-radius: 999px;
+}
+
+.scene-card {
+  flex: 0 0 calc((100% - 2.5rem) / 3.5);
+  max-width: calc((100% - 2.5rem) / 3.5);
+  scroll-snap-align: start;
+}
+
+.scene-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scene-card details {
+  margin-top: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 0.6rem 0.9rem;
+  font-family: "InkFree", "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.scene-card details span {
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.scene-card details span:first-child {
+  margin-top: 0;
+}
+
+.scene-card summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: "InkFree", "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.scene-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.scene-card summary::after {
+  content: "→";
+  float: right;
+  transition: transform 0.25s ease;
+}
+
+.scene-card details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.scene-card p {
+  margin: 0.4rem 0 0;
+  color: #b2badf;
+  font-family: "InkFree", "ByteSansMedium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.storyboards .storyboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.storyboard-card {
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(8, 10, 18, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.storyboard-header {
+  margin-bottom: 1rem;
+}
+
+.storyboard-header p {
+  margin: 0.35rem 0 0;
+  color: #d2d7ff;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3.6rem;
+}
+
+.storyboard-id {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7f8cdf;
+}
+
+.storyboard-link {
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.storyboard-link img {
+  width: 100%;
+  display: block;
+}
+
+.storyboard-link {
+  margin-top: auto;
+}
+
+.storyboard-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.citation {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #05060a;
+  color: #f7f7fb;
+  font-size: 0.9rem;
+}
+
+.citation h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.citation pre {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  overflow-x: auto;
+}
+
+.citation code {
+  font-family: "Courier New", Consolas, monospace;
+  color: inherit;
+}
+
+.footer {
+  margin-top: 4rem;
+  text-align: center;
+  color: #8b92b8;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 1024px) {
+  .videos .video-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .video-card {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+}
+
+.scene-card details span {
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.scene-card details span:first-child {
+  margin-top: 0;
+}
